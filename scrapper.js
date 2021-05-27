@@ -1,5 +1,8 @@
-const fs = require("fs");
+const database = require("./input.json");
 
-let database = JSON.parse(fs.readFileSync("input.json", "utf-8")).toArray();
+// let database = JSON.parse(fs.readFileSync("input.json", "utf-8"));
 
-console.log(typeof database);
+for (let key in database.results) {
+  let value = database.results[key];
+  console.log(key, value);
+}
