@@ -112,4 +112,4 @@ function percentAndRound(value) {
   return Number((value * 100).toFixed(2));
 }
 
-console.log(parseAndExtract(inputJSON));
+// console.log(parseAndExtract(inputJSON));

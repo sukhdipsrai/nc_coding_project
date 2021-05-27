@@ -7,3 +7,5 @@ app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 app.get("/express_backend", (req, res) => {
   res.send({ express: "EXPRESS WORKING" });
 });
+
+app.post("/api", (req, res) => {});
