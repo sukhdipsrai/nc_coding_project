@@ -1,5 +1,5 @@
 const { fs } = require("fs");
-const inputJSON = require("./input.json");
+let inputJSON = require("./input.json");
 
 // let database = JSON.parse(fs.readFileSync("input.json", "utf-8"));
 let res = {
@@ -33,7 +33,7 @@ function parseAndExtract(database) {
     let lastName = value.name.last;
     let age = value.dob.age;
     total++; // keeping count of total names
-    if (key === "0") console.log(value); // TODO: DELETE in production
+    // if (key === "0") console.log(value); // TODO: DELETE in production
 
     // female count
     if (gender === "female") {
@@ -57,7 +57,7 @@ function parseAndExtract(database) {
     // Sort Ages into the ageGroup Array
     if (age > 100) ageGroup[5]++;
     else ageGroup[Math.ceil(age / 20) - 1]++;
-  }
+  } // end loop through database JSON
 
   // Assign the array elements into our response JSON
   res.age["0-20"] = ageGroup[0];
@@ -66,6 +66,8 @@ function parseAndExtract(database) {
   res.age["61-80"] = ageGroup[3];
   res.age["81-100"] = ageGroup[4];
   res.age["100+"] = ageGroup[5];
+
+  return res;
 }
 
 function charA_M(char) {
@@ -74,4 +76,4 @@ function charA_M(char) {
   return code >= 97 && code <= 109;
 }
 
-console.log(res);
+console.log(parseAndExtract(inputJSON));
