@@ -2,24 +2,25 @@ const { fs } = require("fs");
 let inputJSON = require("./input.json");
 
 // let database = JSON.parse(fs.readFileSync("input.json", "utf-8"));
-let res = {
-  female: 0,
-  firstName: {
-    "a-m": 0,
-  },
-  lastName: {
-    "a-m": 0,
-  },
-  age: {
-    "0-20": 0,
-    "21-40": 0,
-    "41-60": 0,
-    "61-80": 0,
-    "81-100": 0,
-    "100+": 0,
-  },
-};
+
 function parseAndExtract(database) {
+  let res = {
+    female: 0,
+    firstName: {
+      "a-m": 0,
+    },
+    lastName: {
+      "a-m": 0,
+    },
+    age: {
+      "0-20": 0,
+      "21-40": 0,
+      "41-60": 0,
+      "61-80": 0,
+      "81-100": 0,
+      "100+": 0,
+    },
+  };
   let states = {};
   let ageGroup = [0, 0, 0, 0, 0, 0];
   let total = 0;
@@ -59,28 +60,26 @@ function parseAndExtract(database) {
     else ageGroup[Math.ceil(age / 20) - 1]++;
   } // end loop through database JSON
 
-  // Assign the array elements into our response JSON
-  res.age["0-20"] = ageGroup[0];
-  res.age["21-40"] = ageGroup[1];
-  res.age["41-60"] = ageGroup[2];
-  res.age["61-80"] = ageGroup[3];
-  res.age["81-100"] = ageGroup[4];
-  res.age["100+"] = ageGroup[5];
+  // convert current stats into percent
+  res.female = percentAndRound(res.female / total);
+  res.firstName["a-m"] = percentAndRound(res.firstName["a-m"] / total);
+  res.lastName["a-m"] = percentAndRound(res.lastName["a-m"] / total);
 
-  // TODO: sort state by population and access hastable to get the top 10, and gender stats, create JSON and add to res
-
+  // Create and Array of states and their total population
   statesArr = [];
   Object.keys(states).forEach((k) => {
     let v = states[k];
     statesArr.push([k, v[0] + v[1] + v[2]]);
   });
 
+  // Sort the States Array
   statesArr = statesArr.sort((first, second) => {
     if (first[1] === second[1]) return first[0] < second[0] ? -1 : 1;
     else return first[1] > second[1] ? -1 : 1;
   });
-  let topState = {};
 
+  // Grab upto the first 10 and JSON-fy
+  let topState = {};
   for (let i = 0; i < 10 && i < statesArr.length; i++) {
     let k = statesArr[i][0];
     let stateTotal = statesArr[i][1];
@@ -91,6 +90,14 @@ function parseAndExtract(database) {
     };
   }
   res.states = topState;
+
+  // Assign the array elements into our response JSON
+  res.age["0-20"] = ageGroup[0];
+  res.age["21-40"] = ageGroup[1];
+  res.age["41-60"] = ageGroup[2];
+  res.age["61-80"] = ageGroup[3];
+  res.age["81-100"] = ageGroup[4];
+  res.age["100+"] = ageGroup[5];
   return res;
 }
 
@@ -100,6 +107,7 @@ function charA_M(char) {
   return code >= 97 && code <= 109;
 }
 
+// Takes a Decimal Number, multiply 100 to percent-fy and then round
 function percentAndRound(value) {
   return Number((value * 100).toFixed(2));
 }
