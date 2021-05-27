@@ -67,6 +67,30 @@ function parseAndExtract(database) {
   res.age["81-100"] = ageGroup[4];
   res.age["100+"] = ageGroup[5];
 
+  // TODO: sort state by population and access hastable to get the top 10, and gender stats, create JSON and add to res
+
+  statesArr = [];
+  Object.keys(states).forEach((k) => {
+    let v = states[k];
+    statesArr.push([k, v[0] + v[1] + v[2]]);
+  });
+
+  statesArr = statesArr.sort((first, second) => {
+    if (first[1] === second[1]) return first[0] < second[0] ? -1 : 1;
+    else return first[1] > second[1] ? -1 : 1;
+  });
+  let topState = {};
+
+  for (let i = 0; i < 10 && i < statesArr.length; i++) {
+    let k = statesArr[i][0];
+    let stateTotal = statesArr[i][1];
+    topState[k] = {
+      female: percentAndRound(states[k][0] / stateTotal),
+      male: percentAndRound(states[k][1] / stateTotal),
+      total: percentAndRound(statesArr[i][1] / total),
+    };
+  }
+  res.states = topState;
   return res;
 }
 
@@ -74,6 +98,10 @@ function charA_M(char) {
   // if (typeof char !== "string") return false; use before input
   let code = char[0].toLowerCase().charCodeAt(0);
   return code >= 97 && code <= 109;
+}
+
+function percentAndRound(value) {
+  return Number((value * 100).toFixed(2));
 }
 
 console.log(parseAndExtract(inputJSON));
