@@ -1,5 +1,5 @@
 // const { fs } = require("fs");
-// let inputJSON = require("./input.json");
+let inputJSON = require("./input.json");
 // let database = JSON.parse(fs.readFileSync("input.json", "utf-8"));
 
 module.exports = {
@@ -114,3 +114,11 @@ function charA_M(char) {
 function percentAndRound(value) {
   return Number((value * 100).toFixed(2));
 }
+
+// const randomPeople = require("./randomPeopleParser");
+// var js2xmlparser = require("js2xmlparser");
+
+// let data = randomPeople.parseAndExtract(inputJSON);
+// let xml = js2xmlparser.parse(data);
+
+// console.log(xml);

@@ -1,4 +1,5 @@
 const randomPeople = require("./randomPeopleParser");
+var js2xmlparser = require("js2xmlparser");
 
 const express = require("express");
 const app = express();
@@ -18,12 +19,16 @@ app.get("/express_backend", (req, res) => {
 // text/xml && application/xml
 app.get("/api/randomUser", (req, res) => {
   let database = req.body;
-  // console.log(randomPeople.parseAndExtract(database));
-  console.log(req.headers.accept === "text/plain");
-  console.log(
+  let data = randomPeople.parseAndExtract(database);
+  if (req.headers.accept === "text/plain") {
+    // convert to text and output
+  } else if (
     req.headers.accept === "text/xml" ||
-      req.headers.accept === "application/xml"
-  );
+    req.headers.accept === "application/xml"
+  ) {
+    res.set("text/xml").send(js2xmlparser.parse("results", data));
+  } else {
+    res.send({ results: data });
+  }
   // TODO: if text, do txt format,  if xml do xml format, else return as is (JSON)
-  res.send("test");
 });
