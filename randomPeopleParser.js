@@ -12,6 +12,8 @@ function parseAndExtract(database) {
     lastName: {
       "a-m": 0,
     },
+    states: [],
+    age: [],
   };
   let states = {};
   let ageGroup = [0, 0, 0, 0, 0, 0];
