@@ -12,14 +12,6 @@ function parseAndExtract(database) {
     lastName: {
       "a-m": 0,
     },
-    age: {
-      "_0-20": 0,
-      "_21-40": 0,
-      "_41-60": 0,
-      "_61-80": 0,
-      "_81-100": 0,
-      "_100+": 0,
-    },
   };
   let states = {};
   let ageGroup = [0, 0, 0, 0, 0, 0];
@@ -28,7 +20,7 @@ function parseAndExtract(database) {
     let value = database.results[key];
 
     let gender = value.gender;
-    let state = value.location.state.split(" ").join("_");
+    let state = value.location.state; //.split(" ").join("_");
     let genderIndex = 1; // used for referencing the array which is keyed to state names in our states hash table
     let firstName = value.name.first;
     let lastName = value.name.last;
@@ -83,7 +75,7 @@ function parseAndExtract(database) {
   for (let i = 0; i < 10 && i < statesArr.length; i++) {
     let k = statesArr[i][0];
     let stateTotal = statesArr[i][1];
-    topState[i] = {
+    topState["_" + i.toString()] = {
       name: k,
       female: percentAndRound(states[k][0] / stateTotal),
       male: percentAndRound(states[k][1] / stateTotal),
@@ -92,13 +84,23 @@ function parseAndExtract(database) {
   }
   res.states = topState;
 
+  ageGroup.forEach((ele, i) => {
+    let ageGroupStr = "100+";
+    if (i === 0) ageGroupStr = `${i * 20}-${(i + 1) * 20}`;
+    else if (i !== 5) ageGroupStr = `${i * 20 + 1}-${(i + 1) * 20}`;
+    ageGroup[i] = {
+      group: ageGroupStr,
+      perent: percentAndRound(ageGroup[i] / total),
+    };
+  });
+  res.age = ageGroup;
   // Assign the array elements into our response JSON
-  res.age["_0-20"] = ageGroup[0];
-  res.age["_21-40"] = ageGroup[1];
-  res.age["_41-60"] = ageGroup[2];
-  res.age["_61-80"] = ageGroup[3];
-  res.age["_81-100"] = ageGroup[4];
-  res.age["_100+"] = ageGroup[5];
+  // res.age["_0-20"] = percentAndRound(ageGroup[0] / total);
+  // res.age["_21-40"] = percentAndRound(ageGroup[1] / total);
+  // res.age["_41-60"] = percentAndRound(ageGroup[2] / total);
+  // res.age["_61-80"] = percentAndRound(ageGroup[3] / total);
+  // res.age["_81-100"] = percentAndRound(ageGroup[4] / total);
+  // res.age["_101-"] = percentAndRound(ageGroup[5] / total);
   return res;
 }
 
@@ -127,20 +129,21 @@ function jsonToText(json) {
   } catch (error) {}
 
   try {
+    let ageStr = "The population of age group";
+    result += ageStr;
+  } catch (error) {}
+
+  try {
     for (key in json.states) {
       let value = json.states[key];
-      let stateName = value.name.split("_").join(" ");
-      result += `Population rank of ${stateName}: ${parseInt(key) + 1}\n`;
+      let stateName = value.name;
+      result += `Population rank of ${stateName}: ${
+        parseInt(key.substr(1)) + 1
+      }\n`;
       result += `Percentage of people in ${stateName}: ${value.total}%\n`;
-      result += `Percentage of females in ${stateName}: ${value.female}%\n`;
-      result += `Percentage of males in ${stateName}: ${value.male}%\n`;
+      result += `Percentage of female population in ${stateName}: ${value.female}%\n`;
+      result += `Percentage of male population in ${stateName}: ${value.male}%\n`;
     }
-  } catch (error) {}
-  try {
-  } catch (error) {}
-  try {
-  } catch (error) {}
-  try {
   } catch (error) {}
 
   return result;
