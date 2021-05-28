@@ -71,16 +71,17 @@ function parseAndExtract(database) {
   });
 
   // Grab upto the first 10 and JSON-fy
-  let topState = {};
+  let topState = [];
   for (let i = 0; i < 10 && i < statesArr.length; i++) {
     let k = statesArr[i][0];
     let stateTotal = statesArr[i][1];
-    topState["_" + i.toString()] = {
+    topState.push({
       name: k,
+      rank: i + 1,
       female: percentAndRound(states[k][0] / stateTotal),
       male: percentAndRound(states[k][1] / stateTotal),
       total: percentAndRound(statesArr[i][1] / total),
-    };
+    });
   }
   res.states = topState;
 
@@ -129,23 +130,23 @@ function jsonToText(json) {
   } catch (error) {}
 
   try {
-    let ageStr = "The population of age group";
-    result += ageStr;
-  } catch (error) {}
-
-  try {
     for (key in json.states) {
       let value = json.states[key];
       let stateName = value.name;
-      result += `Population rank of ${stateName}: ${
-        parseInt(key.substr(1)) + 1
-      }\n`;
+      result += `Population rank of ${stateName}: ${value.rank}\n`;
       result += `Percentage of people in ${stateName}: ${value.total}%\n`;
       result += `Percentage of female population in ${stateName}: ${value.female}%\n`;
       result += `Percentage of male population in ${stateName}: ${value.male}%\n`;
     }
   } catch (error) {}
 
+  try {
+    const ageStr = "The percentage of people in age range ";
+    for (key in json.age) {
+      let value = json.age[key];
+      result += ageStr + `${value.group} : ${value.perent}%\n`;
+    }
+  } catch (error) {}
   return result;
 }
 
