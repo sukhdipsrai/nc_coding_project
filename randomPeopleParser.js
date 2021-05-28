@@ -1,5 +1,5 @@
 // const { fs } = require("fs");
-let inputJSON = require("./input.json");
+// let inputJSON = require("./input.json");
 // let database = JSON.parse(fs.readFileSync("input.json", "utf-8"));
 
 // console.log(parseAndExtract(inputJSON));
@@ -83,7 +83,8 @@ function parseAndExtract(database) {
   for (let i = 0; i < 10 && i < statesArr.length; i++) {
     let k = statesArr[i][0];
     let stateTotal = statesArr[i][1];
-    topState[k] = {
+    topState[i] = {
+      name: k,
       female: percentAndRound(states[k][0] / stateTotal),
       male: percentAndRound(states[k][1] / stateTotal),
       total: percentAndRound(statesArr[i][1] / total),
@@ -113,6 +114,38 @@ function percentAndRound(value) {
   return Number((value * 100).toFixed(2));
 }
 
+function jsonToText(json) {
+  let result = "";
+  try {
+    result += `Percentage female versus male: ${json.female}%\n`;
+  } catch (error) {}
+  try {
+    result += `Percentage of first names that start with A-M versus N-Z: ${json.firstName["a-m"]}%\n`;
+  } catch (error) {}
+  try {
+    result += `Percentage of last names that start with A-M versus N-Z: ${json.lastName["a-m"]}%\n`;
+  } catch (error) {}
+
+  try {
+    for (key in json.states) {
+      let value = json.states[key];
+      let stateName = value.name.split("_").join(" ");
+      result += `Population rank of ${stateName}: ${parseInt(key) + 1}\n`;
+      result += `Percentage of people in ${stateName}: ${value.total}%\n`;
+      result += `Percentage of females in ${stateName}: ${value.female}%\n`;
+      result += `Percentage of males in ${stateName}: ${value.male}%\n`;
+    }
+  } catch (error) {}
+  try {
+  } catch (error) {}
+  try {
+  } catch (error) {}
+  try {
+  } catch (error) {}
+
+  return result;
+}
+
 // const { toXML } = require("jstoxml");
 
 // let data = parseAndExtract(inputJSON);
@@ -123,4 +156,5 @@ function percentAndRound(value) {
 
 module.exports = {
   parseAndExtract,
+  jsonToText,
 };

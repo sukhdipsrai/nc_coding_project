@@ -20,7 +20,7 @@ app.get("/api/randomUser", (req, res) => {
   let database = req.body;
   let data = randomPeople.parseAndExtract(database);
   if (req.headers.accept === "text/plain") {
-    // convert to text and output
+    res.set("text/plain").send(randomPeople.jsonToText(data));
   } else if (req.headers.accept === "text/xml")
     res.set("text/xml").send(toXML({ results: data }));
   else if (req.headers.accept === "application/xml")
