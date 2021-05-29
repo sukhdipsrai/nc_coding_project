@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-
-const RootReducer = combineReducers({});
+import stats from "./stats_reducer";
+const RootReducer = combineReducers({ stats });
 
 export default RootReducer;
