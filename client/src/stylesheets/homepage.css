@@ -1,0 +1,21 @@
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.json-text-input {
+    width: 35vw;
+    line-height: 35vh;
+}
+
+.json-file-input {}
+
+body {
+    background-color: black;
+}
+
+.homepage-container h2 {
+    color: white;
+}
