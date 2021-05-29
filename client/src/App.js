@@ -1,15 +1,19 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { HashRouter } from "react-router-dom";
-// We'll create this soon
-import App from "./app";
+import React, { Component } from "react";
 
-const Root = ({ store }) => (
-  <Provider store={store}>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </Provider>
-);
+import "./App.css";
 
-export default Root;
+class App extends Component {
+  state = {
+    data: null,
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">{this.state.data}</header>
+      </div>
+    );
+  }
+}
+
+export default App;
