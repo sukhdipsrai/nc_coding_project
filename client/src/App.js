@@ -4,10 +4,6 @@ import HomePage from "./components/HomePage";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    data: null,
-  };
-
   render() {
     return (
       <div className="App">

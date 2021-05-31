@@ -1,11 +1,12 @@
 import React from "react";
 import "../stylesheets/homepage.css";
+import axios from "axios";
 var sampleData = require("../input.json");
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: false };
+    this.state = { text: false, stats: null };
   }
 
   switchInput = function () {
@@ -28,6 +29,7 @@ class HomePage extends React.Component {
           document.getElementsByClassName("json-text-input")[0].value
         );
         // send the api request here
+        fetch("api/randomUser");
       } catch (error) {
         this.setState({ textErrors: "Malformed JSON in Text Box, try again." });
       }
