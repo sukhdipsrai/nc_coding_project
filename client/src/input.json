@@ -1,61 +1,6 @@
 {
     "results": [
-        {
-            "gender": "male",
-            "name": {
-                "title": "Mr",
-                "first": "Michael",
-                "last": "Bryant"
-            },
-            "location": {
-                "street": {
-                    "number": 7840,
-                    "name": "E Center St"
-                },
-                "city": "Altoona",
-                "state": "Arizona",
-                "country": "United States",
-                "postcode": 35162,
-                "coordinates": {
-                    "latitude": "-63.5817",
-                    "longitude": "-140.7645"
-                },
-                "timezone": {
-                    "offset": "+9:30",
-                    "description": "Adelaide, Darwin"
-                }
-            },
-            "email": "michael.bryant@example.com",
-            "login": {
-                "uuid": "b1ec2004-a52b-4871-a583-2da54e87ba7d",
-                "username": "lazyduck254",
-                "password": "explorer",
-                "salt": "OulSGDeA",
-                "md5": "e555fbcf3e4ec8ec5c57bc8bc506f6a5",
-                "sha1": "3ca8059d5fc6ebe14bc2259f3b763cc85a6f8159",
-                "sha256": "ae6ad9f44338cf4efc60171387912fa226dfc3586c2a4920764c3d3f1b4a09cc"
-            },
-            "dob": {
-                "date": "1991-07-19T17:12:10.317Z",
-                "age": 30
-            },
-            "registered": {
-                "date": "2013-04-09T12:43:18.781Z",
-                "age": 8
-            },
-            "phone": "(295)-476-4893",
-            "cell": "(214)-431-2433",
-            "id": {
-                "name": "SSN",
-                "value": "673-24-6355"
-            },
-            "picture": {
-                "large": "https://randomuser.me/api/portraits/men/33.jpg",
-                "medium": "https://randomuser.me/api/portraits/med/men/33.jpg",
-                "thumbnail": "https://randomuser.me/api/portraits/thumb/men/33.jpg"
-            },
-            "nat": "US"
-        },
+        
         {
             "gender": "male",
             "name": {
