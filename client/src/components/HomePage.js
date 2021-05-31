@@ -12,8 +12,13 @@ class HomePage extends React.Component {
     this.setState({ text: !this.state.text });
   };
 
+  clearErrors = function () {
+    this.setState({ errors: "", jsonErrors: "", textErrors: "" });
+  };
+
   visualize = function (e) {
     console.log("visualize");
+    this.clearErrors();
     let data = null;
 
     if (!this.state.text) {
@@ -22,6 +27,7 @@ class HomePage extends React.Component {
         data = JSON.parse(
           document.getElementsByClassName("json-text-input")[0].value
         );
+        // send the api request here
       } catch (error) {
         this.setState({ textErrors: "Malformed JSON in Text Box, try again." });
       }
@@ -33,16 +39,17 @@ class HomePage extends React.Component {
         let reader = new FileReader();
         reader.readAsText(file);
 
+        // event fired when file is read
         reader.addEventListener("load", function (e) {
           // contents of the file
           let text = e.target.result;
           document.getElementsByClassName("json-text-input")[0].value = text;
           try {
             data = JSON.parse(text);
-            debugger;
           } catch (error) {
             this.setState({ jsonErrors: "Malformed JSON in File, try again." });
           }
+          // send the api request here
         });
 
         // event fired when file reading failed
