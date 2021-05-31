@@ -9,10 +9,14 @@ class HomePage extends React.Component {
     return (
       <div className="homepage-container">
         <h2>Random User Data Visualiser</h2>
-        <input type="text" className="json-text-input"></input>
+        <input type="radio" id="text" name="input-type" value="text"></input>
+        <label htmlFor="text">Text</label>
+        <input type="radio" id="file" name="input-type" value="file"></input>
+        <label htmlFor="file">File</label>
+        <textarea className="json-text-input"></textarea>
         <input type="file" accept=".json" className="json-file-input"></input>
         <input
-          type="button"
+          type="submit"
           className="json-visualize"
           value="Visualize"
         ></input>

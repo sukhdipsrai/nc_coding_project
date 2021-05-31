@@ -8,7 +8,9 @@
 
 .json-text-input {
     width: 35%;
-    line-height: 35vh;
+    height: 40vh;
+    overflow: auto;
+    margin-bottom: 1%;
 }
 
 .json-file-input {}
@@ -19,6 +21,7 @@
     color: #003B73;
     font-size: large;
     transition: .5s;
+    margin: 3%;
     padding: 1%;
 }
 
@@ -41,8 +44,5 @@ body {
 
 .homepage-container input {
     border: 3px solid #0074B7;
-    margin-bottom: 5%;
     color: #003B73;
 }
-
-.app {}
