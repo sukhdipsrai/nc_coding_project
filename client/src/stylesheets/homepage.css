@@ -3,19 +3,46 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #60A3D9;
 }
 
 .json-text-input {
-    width: 35vw;
+    width: 35%;
     line-height: 35vh;
 }
 
 .json-file-input {}
 
+.json-visualize {
+    background-color: #60A3D9;
+    border: 5px solid #0074B7;
+    color: #003B73;
+    font-size: large;
+    transition: .5s;
+    padding: 1%;
+}
+
+.json-visualize:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
 body {
-    background-color: black;
+    background-color: #003B73;
+    min-width: 500px;
+    min-height: 325px;
 }
 
 .homepage-container h2 {
-    color: white;
+    color: #003B73;
+    border: 5px solid #0074B7;
+    padding: 5%;
 }
+
+.homepage-container input {
+    border: 3px solid #0074B7;
+    margin-bottom: 5%;
+    color: #003B73;
+}
+
+.app {}
