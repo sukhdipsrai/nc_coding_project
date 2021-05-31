@@ -6,8 +6,16 @@
     background-color: #60A3D9;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+}
+
 .json-text-input {
-    width: 35%;
+    width: 100%;
     height: 40vh;
     overflow: auto;
     margin-bottom: 1%;
@@ -39,10 +47,19 @@ body {
 .homepage-container h2 {
     color: #003B73;
     border: 5px solid #0074B7;
-    padding: 5%;
+    padding: 3%;
 }
 
-.homepage-container input {
+.data-input-form input {
     border: 3px solid #0074B7;
     color: #003B73;
+}
+
+.radio-container input {
+    margin-left: 3%;
+}
+
+.radio-container {
+    width: 100%;
+    margin-bottom: 3%;
 }
