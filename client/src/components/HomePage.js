@@ -5,8 +5,6 @@ var sampleData = require("../input.json");
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.switchInput = this.switchInput;
-    this.visualize = this.visualize;
     this.state = { text: false };
   }
 
@@ -16,14 +14,42 @@ class HomePage extends React.Component {
 
   visualize = function (e) {
     console.log("visualize");
-    // debugger;
+    let data = null;
+
     if (!this.state.text) {
+      data = JSON.parse(
+        document.getElementsByClassName("json-text-input")[0].value
+      );
       // Use Text Input
+      try {
+        debugger;
+      } catch (error) {
+        this.setState({ textErrors: "Malformed JSON in Text Box, try again." });
+      }
     } else {
       // use file input
       let file = document.getElementsByClassName("json-file-input")[0].files[0];
-      debugger;
+      let reader = new FileReader();
+      reader.readAsText(file);
+
+      reader.addEventListener("load", function (e) {
+        // contents of the file
+        let text = e.target.result;
+        document.getElementsByClassName("json-text-input")[0].value = text;
+        try {
+          data = JSON.parse(text);
+        } catch (error) {
+          this.setState({ jsonErrors: "Malformed JSON in File, try again." });
+        }
+      });
+
+      // event fired when file reading failed
+      reader.addEventListener("error", function () {
+        this.setState({ errors: "Error in Reading File, try again." });
+      });
     }
+    if (data !== null) console.log(data);
+    //  make API request and route to d3
   };
 
   render() {
@@ -70,6 +96,9 @@ class HomePage extends React.Component {
             value="Visualize"
             onClick={(e) => this.visualize(e)}
           ></input>
+          <div className="form-errors">{this.state.jsonErrors}</div>
+          <div className="form-errors">{this.state.errors}</div>
+          <div className="form-errors">{this.state.textErrors}</div>
         </form>
       </div>
     );
