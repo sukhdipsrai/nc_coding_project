@@ -1,0 +1,16 @@
+.charts-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas.pie {
+    max-height: 300px;
+    max-width: 300px;
+}
+
+canvas.bar {
+    min-width: 600px;
+    min-height: auto;
+}
