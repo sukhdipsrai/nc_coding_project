@@ -7,7 +7,7 @@ class RandomUserCharts extends React.Component {
   }
 
   render() {
-    return <div className="homepage-container"></div>;
+    return <div className="charts-container">{console.log(this.props)}</div>;
   }
 }
 

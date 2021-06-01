@@ -15,13 +15,8 @@ class HomePage extends React.Component {
     this.setState({ text: !this.state.text });
   };
 
-  clearErrors = () => {
-    this.setState({ errors: "", jsonErrors: "", textErrors: "" });
-  };
-
   visualize = (e) => {
     console.log("visualize");
-    this.clearErrors();
     let data = null;
     var config = {
       method: "post",
@@ -41,13 +36,13 @@ class HomePage extends React.Component {
         axios(config)
           .then((response) => {
             let stats = JSON.stringify(response.data);
-            this.setState({ stats: stats });
+            this.setState({ stats: JSON.parse(stats), errors: "" });
           })
           .catch((error) => {
-            console.log(error);
+            this.setState({ errors: "Malformed JSON in Text Box, try again." });
           });
       } catch (error) {
-        this.setState({ textErrors: "Malformed JSON in Text Box, try again." });
+        this.setState({ errors: "Malformed JSON in Text Box, try again." });
       }
     }
     // Use File Input
@@ -72,14 +67,16 @@ class HomePage extends React.Component {
             axios(config)
               .then((response) => {
                 let stats = JSON.stringify(response.data);
-                this.setState({ stats: stats });
+                this.setState({ stats: JSON.parse(stats), errors: "" });
               })
               .catch(function (error) {
-                throw error;
+                this.setState({
+                  errors: "Malformed JSON in Text Box, try again.",
+                });
               });
           } catch (error) {
             // save erros to state if JSON cannot be parsed
-            this.setState({ jsonErrors: "Malformed JSON in File, try again." });
+            this.setState({ errors: "Malformed JSON in File, try again." });
           }
         });
 
@@ -95,6 +92,11 @@ class HomePage extends React.Component {
   };
 
   render() {
+    let charts =
+      this.state.stats === null ? null : (
+        <RandomUserCharts stats={this.state.stats} />
+      );
+
     return (
       <div className="homepage-container">
         <h2>Random User Data Visualiser</h2>
@@ -138,11 +140,9 @@ class HomePage extends React.Component {
             value="Visualize"
             onClick={(e) => this.visualize(e)}
           ></input>
-          <div className="form-errors">{this.state.jsonErrors}</div>
           <div className="form-errors">{this.state.errors}</div>
-          <div className="form-errors">{this.state.textErrors}</div>
         </form>
-        <RandomUserCharts stats={this.state.stats} />
+        {charts}
       </div>
     );
   }
