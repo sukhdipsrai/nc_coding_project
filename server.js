@@ -1,13 +1,21 @@
 const randomPeople = require("./randomPeopleParser");
 const { toXML } = require("jstoxml");
 const express = require("express");
-bodyParser = require("body-parser");
-
+// const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.json({ limit: "50mb", parameterLimit: 500000000 }));
-app.use(express.urlencoded({ limit: "50mb", parameterLimit: 500000000 }));
+app.use(
+  express.json({ limit: "50mb", parameterLimit: 500000000, extended: true })
+);
+app.use(
+  express.urlencoded({
+    limit: "50mb",
+    parameterLimit: 500000000,
+    extended: true,
+  })
+);
+// app.use(cors());
 
 app.get("/express_backend", (req, res) => {
   console.log(req.headers.accept);
@@ -17,7 +25,7 @@ app.get("/express_backend", (req, res) => {
 //  text/plain
 //  application/json
 // text/xml && application/xml
-app.get("/api/randomUser", (req, res) => {
+app.post("/api/randomUser", (req, res) => {
   console.log(req);
   let database = req.body;
   let data = randomPeople.parseAndExtract(database);
