@@ -47,5 +47,6 @@ app.post("/api/randomUser", (req, res) => {
   // convert JSON to XML
   else if (req.headers.accept === "application/xml")
     res.set("application/xml").send(toXML({ results: data }));
+  // otherwise send as JSON, application/json
   else res.send({ results: data });
 });
