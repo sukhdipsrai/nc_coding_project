@@ -81,7 +81,7 @@ function parseAndExtract(database) {
       let y = statesArr[i][2];
       let z = statesArr[i][3];
       res.topStatesTotal.push({
-        _name: "State",
+        _name: "state",
         _content: {
           name: name,
           rank: i + 1,
@@ -109,7 +109,7 @@ function parseAndExtract(database) {
       let y = statesArr[i][2];
       let z = statesArr[i][3];
       res.topStatesFemale.push({
-        _name: "State",
+        _name: "state",
         _content: {
           name: name,
           rank: i + 1,
@@ -134,7 +134,7 @@ function parseAndExtract(database) {
       let y = statesArr[i][2];
       let z = statesArr[i][3];
       res.topStatesMale.push({
-        _name: "State",
+        _name: "state",
         _content: {
           name: name,
           rank: i + 1,
@@ -151,7 +151,7 @@ function parseAndExtract(database) {
     if (i === 0) ageGroupStr = `${i * 20}-${(i + 1) * 20}`;
     else if (i !== 5) ageGroupStr = `${i * 20 + 1}-${(i + 1) * 20}`;
     ageGroup[i] = {
-      _name: "AgeGroup",
+      _name: "ageGroup",
       _content: {
         group: ageGroupStr,
         percent: percentAndRound(ageGroup[i] / total),
