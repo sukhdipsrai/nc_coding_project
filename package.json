@@ -22,7 +22,9 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "js2xmlparser": "^4.0.1",
-    "jstoxml": "^2.0.5",
+    "jstoxml": "^2.0.5"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.7"
   }
 }
