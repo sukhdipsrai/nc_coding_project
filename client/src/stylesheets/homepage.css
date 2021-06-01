@@ -31,7 +31,7 @@ input.json-visualize {
     border-top: 5px solid #0074B7;
     border-left: 5px solid #0074B7;
     border-bottom: 5px solid #0074B7;
-    box-shadow: 5pt 5pt #BFD7ED;
+    box-shadow: 3pt 3pt #BFD7ED;
     color: #003B73;
     font-size: large;
     transition: .5s;

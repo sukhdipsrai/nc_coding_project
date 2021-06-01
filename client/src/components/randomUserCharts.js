@@ -18,13 +18,49 @@ class RandomUserCharts extends React.Component {
           backgroundColor: ["rgba(93, 78, 109,.5)", "rgba(201, 242, 153,0.5"],
         },
       ],
-
-      // These labels appear in the legend and in the tooltips when hovering different arcs
       labels: ["Female", "Male"],
+    };
+    let firstNameData = {
+      datasets: [
+        {
+          label: "% of total population",
+          data: [firstName["a-m"], 100.0 - firstName["a-m"]],
+          backgroundColor: ["rgba(93, 78, 109,.5)", "rgba(201, 242, 153,0.5"],
+        },
+      ],
+      labels: ["A-M", "N-Z"],
+    };
+    let lastNameData = {
+      datasets: [
+        {
+          label: "% of total population",
+          data: [lastName["a-m"], 100.0 - lastName["a-m"]],
+          backgroundColor: ["rgba(93, 78, 109,.5)", "rgba(201, 242, 153,0.5"],
+        },
+      ],
+      labels: ["A-M", "N-Z"],
+    };
+    let ageLabels = [];
+    let ageValues = [];
+    age.forEach((ele) => {
+      ageLabels.push(ele.group);
+      ageValues.push(ele.percent);
+    });
+    let ageGroup = {
+      datasets: [
+        {
+          label: "% of total population",
+          data: [lastName["a-m"], 100.0 - lastName["a-m"]],
+          backgroundColor: ["rgba(93, 78, 109,.5)", "rgba(201, 242, 153,0.5"],
+        },
+      ],
+      labels: ["A-M", "N-Z"],
     };
     return (
       <div className="charts-container">
         <Pie id="gender" data={genderData}></Pie>
+        <Pie id="firstName" data={firstNameData}></Pie>
+        <Pie id="lastName" data={lastNameData}></Pie>
       </div>
     );
   }
