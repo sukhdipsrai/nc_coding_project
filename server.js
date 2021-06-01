@@ -17,6 +17,7 @@ app.use(
 );
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+// serve the index.html react client
 const path = require("path");
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -27,17 +28,23 @@ if (process.env.NODE_ENV === "production") {
 
 //  text/plain
 //  application/json
-// text/xml && application/xml
+//  text/xml && application/xml
+//  handling the above accept headers
 app.post("/api/randomUser", (req, res) => {
   // console.log(req);
   let database = req.body;
+  // first create JSON statisitics
   let data = randomPeople.parseAndExtract(database);
+  // 400 response, failed to parse and/or extract values from JSON, or empty data set
   if (data === null)
     res.status(400).send("Something wrong with the given JSON Data.");
-  else if (req.headers.accept === "text/plain") {
+  // convert JSON to human readable text
+  else if (req.headers.accept === "text/plain")
     res.set("text/plain").send(randomPeople.jsonToText(data));
-  } else if (req.headers.accept === "text/xml")
+  // convert JSON to XML
+  else if (req.headers.accept === "text/xml")
     res.set("text/xml").send(toXML({ results: data }));
+  // convert JSON to XML
   else if (req.headers.accept === "application/xml")
     res.set("application/xml").send(toXML({ results: data }));
   else res.send({ results: data });

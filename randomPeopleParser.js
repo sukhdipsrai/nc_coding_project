@@ -1,8 +1,3 @@
-// const { fs } = require("fs");
-// let inputJSON = require("./input.json");
-// let database = JSON.parse(fs.readFileSync("input.json", "utf-8"));
-
-// console.log(parseAndExtract(inputJSON));
 function parseAndExtract(database) {
   let res = {
     female: 0,
