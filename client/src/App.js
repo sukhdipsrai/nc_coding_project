@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router";
 import HomePage from "./components/homePage";
 import "./App.css";
 
+// Routes structure implemented for future use, not fully used currently
 class App extends Component {
   render() {
     return (
