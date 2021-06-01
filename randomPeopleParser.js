@@ -67,67 +67,76 @@ function parseAndExtract(database) {
     statesArr.push([k, v[0], v[1], v[0] + v[1]]);
   });
 
-  console.log(statesArr);
+  // State
   // Sort the States Array for top total population
-  let statesArrTotal = statesArr.sort((first, second) => {
+  statesArr.sort((first, second) => {
     if (first[3] === second[3]) return first[0] < second[0] ? -1 : 1;
     else return first[3] > second[3] ? -1 : 1;
   });
   // Grab upto the first 10 and JSON-fy
   for (let i = 0; i < 10; i++) {
-    if (statesArrTotal[i] !== undefined) {
-      let name = statesArrTotal[i][0];
-      let x = statesArrTotal[i][1];
-      let y = statesArrTotal[i][2];
-      let z = statesArrTotal[i][3];
+    if (statesArr[i] !== undefined) {
+      let name = statesArr[i][0];
+      let x = statesArr[i][1];
+      let y = statesArr[i][2];
+      let z = statesArr[i][3];
       res.topStatesTotal.push({
         name: name,
         rank: i + 1,
         female: percentAndRound(x / z),
+        male: percentAndRound(y / z),
+        total: percentAndRound(z / total),
+      });
+    }
+  }
+  console.log(statesArr);
+  // Female
+  // Sort the States Array for top femlale population
+  statesArr.sort((first, second) => {
+    if (first[1] === second[1]) return first[0] < second[0] ? -1 : 1;
+    else return first[1] > second[1] ? -1 : 1;
+  });
+  console.log(statesArr);
+
+  // Grab upto the first 10 and JSON-fy
+  for (let i = 0; i < 10; i++) {
+    if (statesArr[i] !== undefined) {
+      let name = statesArr[i][0];
+      let x = statesArr[i][1];
+      let y = statesArr[i][2];
+      let z = statesArr[i][3];
+      res.topStatesFemale.push({
+        name: name,
+        rank: i + 1,
+        female: percentAndRound(x / z),
+        male: percentAndRound(y / z),
         total: percentAndRound(z / total),
       });
     }
   }
 
-  // Sort the States Array for top femlale population
-  let statesArrFemale = statesArr.sort((first, second) => {
-    if (first[1] === second[1]) return first[0] < second[0] ? -1 : 1;
-    else return first[1] > second[1] ? -1 : 1;
+  // Sort the States Array for top male population
+  statesArr.sort((first, second) => {
+    if (first[2] === second[2]) return first[0] < second[0] ? -1 : 1;
+    else return first[2] > second[2] ? -1 : 1;
   });
   // Grab upto the first 10 and JSON-fy
   for (let i = 0; i < 10; i++) {
-    if (statesArrFemale[i] !== undefined) {
-      let name = statesArrFemale[i][0];
-      let x = statesArrFemale[i][1];
-      let y = statesArrFemale[i][2];
-      let z = statesArrFemale[i][3];
-      res.topStatesFemale.push({
-        name: name,
-        rank: i + 1,
-        female: percentAndRound(x / z),
-        total: percentAndRound(z / total),
-      });
-    }
-    // Sort the States Array for top male population
-    let statesArrMale = statesArr.sort((first, second) => {
-      if (first[2] === second[2]) return first[0] < second[0] ? -1 : 1;
-      else return first[2] > second[2] ? -1 : 1;
-    });
-    // Grab upto the first 10 and JSON-fy
-    for (let i = 0; i < 10; i++) {}
-    if (statesArrMale[i] !== undefined) {
-      let name = statesArrMale[i][0];
-      let x = statesArrMale[i][1];
-      let y = statesArrMale[i][2];
-      let z = statesArrMale[i][3];
+    if (statesArr[i] !== undefined) {
+      let name = statesArr[i][0];
+      let x = statesArr[i][1];
+      let y = statesArr[i][2];
+      let z = statesArr[i][3];
       res.topStatesMale.push({
         name: name,
         rank: i + 1,
         female: percentAndRound(x / z),
+        male: percentAndRound(y / z),
         total: percentAndRound(z / total),
       });
     }
   }
+
   ageGroup.forEach((ele, i) => {
     let ageGroupStr = "100+";
     if (i === 0) ageGroupStr = `${i * 20}-${(i + 1) * 20}`;
