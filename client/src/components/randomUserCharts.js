@@ -117,6 +117,8 @@ class RandomUserCharts extends React.Component {
         },
         legend: {
           labels: {
+            color: "#292929",
+
             font: {
               size: 14,
             },
@@ -167,6 +169,7 @@ class RandomUserCharts extends React.Component {
         },
         legend: {
           labels: {
+            color: "#292929",
             font: {
               size: 14,
             },
@@ -175,20 +178,20 @@ class RandomUserCharts extends React.Component {
       },
       responsive: true,
     };
-    let options1 = optionsBar;
+    let options1 = JSON.parse(JSON.stringify(optionsBar));
     options1.plugins.title.text = "Top States Ranked by General Population";
-    let options2 = optionsBar;
+    let options2 = JSON.parse(JSON.stringify(optionsBar));
     options2.plugins.title.text = "Top States Ranked by Female Population";
-    let options3 = optionsBar;
+    let options3 = JSON.parse(JSON.stringify(optionsBar));
     options3.plugins.title.text = "Top States Ranked by Male Population";
 
-    let options4 = optionsPie;
+    let options4 = JSON.parse(JSON.stringify(optionsPie));
     options4.plugins.title.text = "Female Vs. Male Population";
-    let options5 = optionsPie;
+    let options5 = JSON.parse(JSON.stringify(optionsPie));
     options5.plugins.title.text = "First Names that start with A-M Vs. N-Z.";
-    let options6 = optionsPie;
+    let options6 = JSON.parse(JSON.stringify(optionsPie));
     options6.plugins.title.text = "Last Names that start with A-M Vs. N-Z.";
-    let options7 = optionsPie;
+    let options7 = JSON.parse(JSON.stringify(optionsPie));
     options7.plugins.title.text = "Different Age Groups of the Population";
 
     return (
