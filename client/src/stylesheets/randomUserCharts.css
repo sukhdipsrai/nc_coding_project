@@ -8,9 +8,11 @@
 canvas.pie {
     max-height: 300px;
     max-width: 300px;
+    margin-bottom: 10%;
 }
 
 canvas.bar {
-    min-width: 600px;
-    min-height: auto;
+    min-width: 700px;
+    min-height: 400px;
+    margin-bottom: 10%
 }
