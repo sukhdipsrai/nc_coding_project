@@ -17,19 +17,20 @@ function parseAndExtract(database) {
     topStatesMale: [],
     age: [],
   };
+  // JSON hash used to keep count of data per state
   let states = {};
   let ageGroup = [0, 0, 0, 0, 0, 0];
   let total = 0;
   for (let key in database.results) {
+    // init some vars that are needed JSON values
     let value = database.results[key];
-
     let gender = value.gender;
-    let state = value.location.state; //.split(" ").join("_");
-    let genderIndex = null; // used for referencing the array which is keyed to state names in our states hash table
+    let state = value.location.state;
     let firstName = value.name.first;
     let lastName = value.name.last;
     let age = value.dob.age;
     total++; // keeping count of total names
+    let genderIndex = null; // used for referencing the array which is keyed to state names in our states hash table
 
     // female count
     if (gender === "female") {
@@ -60,14 +61,14 @@ function parseAndExtract(database) {
   res.firstName["a-m"] = percentAndRound(res.firstName["a-m"] / total);
   res.lastName["a-m"] = percentAndRound(res.lastName["a-m"] / total);
 
-  // Create and Array of states and their total population
+  // Create the statesArr=['nameOfState', female-population, male-population, total-population] of states and their total population
+  // convert the states hash into array bascially, will help to create our data stats
   statesArr = [];
   Object.keys(states).forEach((k) => {
     let v = states[k];
     statesArr.push([k, v[0], v[1], v[0] + v[1]]);
   });
 
-  // State
   // Sort the States Array for top total population
   statesArr.sort((first, second) => {
     if (first[3] === second[3]) return first[0] < second[0] ? -1 : 1;
@@ -92,8 +93,8 @@ function parseAndExtract(database) {
       });
     }
   }
-  // console.log(statesArr);
-  // Female
+
+  // Top 10 states with most females
   // Sort the States Array for top femlale population
   statesArr.sort((first, second) => {
     if (first[1] === second[1]) return first[0] < second[0] ? -1 : 1;
@@ -121,7 +122,7 @@ function parseAndExtract(database) {
     }
   }
 
-  // Sort the States Array for top male population
+  // Sort the States Array for Highest male population
   statesArr.sort((first, second) => {
     if (first[2] === second[2]) return first[0] < second[0] ? -1 : 1;
     else return first[2] > second[2] ? -1 : 1;
@@ -146,6 +147,7 @@ function parseAndExtract(database) {
     }
   }
 
+  // format and create the age JSON output using the counted values in ageGroup, where the index matches the group. group[0-20] is index=0, ... etc
   ageGroup.forEach((ele, i) => {
     let ageGroupStr = "100+";
     if (i === 0) ageGroupStr = `${i * 20}-${(i + 1) * 20}`;
@@ -158,14 +160,14 @@ function parseAndExtract(database) {
       },
     };
   });
+  // add ageGroup JSON
   res.age = ageGroup;
   res.total = total;
   return total === 0 ? null : res;
 }
 
-// true only if character is A-M
+// true only if character is A-M, reads ASCII value of character, after converting it to lowercase. can do without conversion and check dual ranges
 function charA_M(char) {
-  // if (typeof char !== "string") return false; use before input
   let code = char[0].toLowerCase().charCodeAt(0);
   return code >= 97 && code <= 109;
 }
@@ -175,6 +177,7 @@ function percentAndRound(value) {
   return Number((value * 100).toFixed(2));
 }
 
+// takes the json input that is return from parseAndExtract(), uses it to make a text file output that is human readable
 function jsonToText(json) {
   let result = "";
   try {
@@ -206,22 +209,15 @@ function jsonToText(json) {
   } catch (error) {}
 
   try {
-    const ageStr = "The percentage of people in age range ";
     for (key in json.age) {
       let value = json.age[key]._content;
-      result += ageStr + `${value.group} : ${value.percent}%\n`;
+      result +=
+        "The percentage of people in age range " +
+        `${value.group} : ${value.percent}%\n`;
     }
   } catch (error) {}
   return result;
 }
-
-// const { toXML } = require("jstoxml");
-
-// let data = parseAndExtract(inputJSON);
-// console.log(data);
-// let xml = toXML(data);
-
-// console.log(xml);
 
 module.exports = {
   parseAndExtract,

@@ -16,8 +16,9 @@ class HomePage extends React.Component {
   };
 
   visualize = (e) => {
+    // save error message as string, saved to state JSON.parse errors will arise
     let invalidStr = `Malformed JSON in Text Box, try again.\nSee https://randomuser.me/documentation for sample data.`;
-    // console.log("visualize");
+    // init vars and our request to bring back statistical data by sending our JSON data
     let data = null;
     var config = {
       method: "post",
@@ -28,10 +29,14 @@ class HomePage extends React.Component {
       },
     };
 
+    // conditional branch to use text from either the input box or file upload
     if (!this.state.text) {
       // Use Text Input
+
+      // try catch block used to intially validate JSON, will fail only with basic synxtax errors like mismatch quotes, curly braces etc
       try {
         let data = document.getElementsByClassName("json-text-input")[0].value;
+        // where errors would be thrown if the input is a bad JSON
         config["data"] = JSON.parse(JSON.stringify(data));
         // send data to backend for statistics
         axios(config)
@@ -49,6 +54,8 @@ class HomePage extends React.Component {
     // Use File Input
     else {
       // first try catch block attempts to read the user input file
+      // catching errors in reading the file and the JSON within, any basic syntax issues
+      // error is thrown before sending to the backend
       try {
         let file =
           document.getElementsByClassName("json-file-input")[0].files[0];
@@ -70,7 +77,7 @@ class HomePage extends React.Component {
                 let stats = JSON.stringify(response.data);
                 this.setState({ stats: JSON.parse(stats), errors: "" });
               })
-              .catch(function (error) {
+              .catch((error) => {
                 this.setState({
                   errors: invalidStr,
                 });
@@ -83,7 +90,8 @@ class HomePage extends React.Component {
 
         // event fired when file reading failed
         reader.addEventListener("error", () => {
-          this.setState({ errors: "Error in Reading File, try again." });
+          // this.setState({ errors: "Error in Reading File, try again." });
+          throw "Error in Reading File";
         });
       } catch (error) {
         // save erros to state if file cannot be read
@@ -93,6 +101,7 @@ class HomePage extends React.Component {
   };
 
   render() {
+    // RandUserCharts receive all stats data from the backend as props, uses it to display charts
     let charts =
       this.state.stats === null ? null : (
         <RandomUserCharts stats={this.state.stats} />
@@ -101,8 +110,10 @@ class HomePage extends React.Component {
     return (
       <div className="homepage-container">
         <h2>Random User Data Visualiser</h2>
+        {/* data input form */}
         <form className="data-input-form">
           <div className="radio-container">
+            {/* radio selector between file and text input */}
             <input
               type="radio"
               id="text"
@@ -122,19 +133,21 @@ class HomePage extends React.Component {
             ></input>
             <label htmlFor="file">File</label>
           </div>
-
+          {/* text area input */}
           <textarea
             className="json-text-input"
             disabled={this.state.text}
             defaultValue={JSON.stringify(sampleData)}
             spellCheck="false"
           ></textarea>
+          {/* file upload button */}
           <input
             type="file"
             accept=".json"
             className="json-file-input"
             disabled={!this.state.text}
           ></input>
+          {/* Submit button that processes input when clicked */}
           <input
             type="button"
             className="json-visualize"
@@ -143,6 +156,7 @@ class HomePage extends React.Component {
           ></input>
           <div className="form-errors">{this.state.errors}</div>
         </form>
+        {/* render charts, default null */}
         {charts}
       </div>
     );

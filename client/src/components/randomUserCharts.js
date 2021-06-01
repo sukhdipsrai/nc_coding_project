@@ -8,7 +8,7 @@ class RandomUserCharts extends React.Component {
     let stateMale = [];
     let stateTotal = [];
     let stateLabels = [];
-
+    //  since this is a stacked and line graph, 3 data sets are needs, [male,female, total] and a labels array ["states"]
     statesTopData.forEach((ele) => {
       stateLabels.push(ele._content.name);
       stateMale.push(ele._content.male);
@@ -16,6 +16,8 @@ class RandomUserCharts extends React.Component {
       stateTotal.push(ele._content.total);
     });
 
+    // each dataset is grouped with a type "bar,line etc", a label for hover information, and some styling options
+    // one set of labels because this is intended for a stacked graph
     let data = {
       labels: stateLabels,
       datasets: [
@@ -44,8 +46,9 @@ class RandomUserCharts extends React.Component {
   };
 
   render() {
-    // console.log(this.props.stats.results);
+    // Grab JSON slices from props, our stats data
     let { female, firstName, lastName, age } = this.props.stats.results;
+    //  chart.js format for dataset, gender pie chart data
     let genderData = {
       datasets: [
         {
@@ -56,6 +59,7 @@ class RandomUserCharts extends React.Component {
       ],
       labels: ["Female", "Male"],
     };
+    // firstName pie chart data
     let firstNameData = {
       datasets: [
         {
@@ -66,6 +70,7 @@ class RandomUserCharts extends React.Component {
       ],
       labels: ["A-M", "N-Z"],
     };
+    // lastName pie chart data
     let lastNameData = {
       datasets: [
         {
@@ -76,12 +81,15 @@ class RandomUserCharts extends React.Component {
       ],
       labels: ["A-M", "N-Z"],
     };
+    // arrays to store age group labels and matching values
     let ageLabels = [];
     let ageValues = [];
+    // iterate through JSON slice for age data and build our data arrays
     age.forEach((ele) => {
       ageLabels.push(ele._content.group);
       ageValues.push(ele._content.percent);
     });
+    // age group pie chart data
     let ageGroupData = {
       datasets: [
         {
@@ -100,7 +108,7 @@ class RandomUserCharts extends React.Component {
       ],
       labels: ageLabels,
     };
-
+    // default options param for our bar graphs, changing styling, copies are made where title text is changed
     let optionsBar = {
       plugins: {
         title: {
@@ -158,6 +166,7 @@ class RandomUserCharts extends React.Component {
         },
       },
     };
+    // our default options params for styling pie charts, copies are made where tittle text is changed
     let optionsPie = {
       plugins: {
         title: {
@@ -179,6 +188,7 @@ class RandomUserCharts extends React.Component {
       },
       responsive: true,
     };
+    // change titles and make copes of options params for pie and bar charts
     let options1 = JSON.parse(JSON.stringify(optionsBar));
     options1.plugins.title.text =
       "Top States Ranked by General Population (Highest to the left)";
@@ -190,16 +200,20 @@ class RandomUserCharts extends React.Component {
       "Top States Ranked by Male Population (Highest to the left)";
 
     let options4 = JSON.parse(JSON.stringify(optionsPie));
-    options4.plugins.title.text = "Female Vs. Male Population";
+    options4.plugins.title.text = "Percentage Female Vs. Male Population";
     let options5 = JSON.parse(JSON.stringify(optionsPie));
-    options5.plugins.title.text = "First Names that start with A-M Vs. N-Z.";
+    options5.plugins.title.text =
+      "Percentage First Names that start with A-M Vs. N-Z.";
     let options6 = JSON.parse(JSON.stringify(optionsPie));
-    options6.plugins.title.text = "Last Names that start with A-M Vs. N-Z.";
+    options6.plugins.title.text =
+      "Percentage Last Names that start with A-M Vs. N-Z.";
     let options7 = JSON.parse(JSON.stringify(optionsPie));
-    options7.plugins.title.text = "Different Age Groups of the Population";
+    options7.plugins.title.text =
+      "Percentage Different Age Groups of the Population";
 
     return (
       <div className="charts-container">
+        {/* render chart.js react components, pass data and options built earlier */}
         <Pie
           className="pie gender"
           id="gender"
@@ -232,6 +246,7 @@ class RandomUserCharts extends React.Component {
           width="50"
           options={options7}
         ></Pie>
+        {/* parseStateData, since all three JSON slices are similar, a method is used to create the daataset */}
         <Bar
           id="topStateTotal"
           className="bar stateTotal"
