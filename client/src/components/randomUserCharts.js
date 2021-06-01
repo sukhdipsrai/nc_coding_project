@@ -10,10 +10,10 @@ class RandomUserCharts extends React.Component {
     let stateLabels = [];
 
     statesTopData.forEach((ele) => {
-      stateLabels.push(ele.name);
-      stateMale.push(100.0 - ele.female);
-      stateFemale.push(ele.female);
-      stateTotal.push(ele.total);
+      stateLabels.push(ele._content.name);
+      stateMale.push(ele._content.male);
+      stateFemale.push(ele._content.female);
+      stateTotal.push(ele._content.total);
     });
 
     let data = {
@@ -79,8 +79,8 @@ class RandomUserCharts extends React.Component {
     let ageLabels = [];
     let ageValues = [];
     age.forEach((ele) => {
-      ageLabels.push(ele.group);
-      ageValues.push(ele.percent);
+      ageLabels.push(ele._content.group);
+      ageValues.push(ele._content.percent);
     });
     let ageGroupData = {
       datasets: [
