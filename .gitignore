@@ -2,6 +2,5 @@
 /client/node_modules
 /config/keys_dev.js
 /client/.eslintcache
-client/.eslintcache
 
 /client/public/readme
