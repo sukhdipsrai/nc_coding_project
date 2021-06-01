@@ -44,7 +44,7 @@ class RandomUserCharts extends React.Component {
   };
 
   render() {
-    console.log(this.props.stats.results);
+    // console.log(this.props.stats.results);
     let { female, firstName, lastName, age } = this.props.stats.results;
     let genderData = {
       datasets: [

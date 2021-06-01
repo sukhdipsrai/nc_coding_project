@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
 //  application/json
 // text/xml && application/xml
 app.post("/api/randomUser", (req, res) => {
-  console.log(req);
+  // console.log(req);
   let database = req.body;
   let data = randomPeople.parseAndExtract(database);
   if (data === null)

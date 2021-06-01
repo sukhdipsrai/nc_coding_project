@@ -92,14 +92,14 @@ function parseAndExtract(database) {
       });
     }
   }
-  console.log(statesArr);
+  // console.log(statesArr);
   // Female
   // Sort the States Array for top femlale population
   statesArr.sort((first, second) => {
     if (first[1] === second[1]) return first[0] < second[0] ? -1 : 1;
     else return first[1] > second[1] ? -1 : 1;
   });
-  console.log(statesArr);
+  // console.log(statesArr);
 
   // Grab upto the first 10 and JSON-fy
   for (let i = 0; i < 10; i++) {

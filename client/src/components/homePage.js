@@ -17,7 +17,7 @@ class HomePage extends React.Component {
 
   visualize = (e) => {
     let invalidStr = `Malformed JSON in Text Box, try again.\nSee https://randomuser.me/documentation for sample data.`;
-    console.log("visualize");
+    // console.log("visualize");
     let data = null;
     var config = {
       method: "post",
