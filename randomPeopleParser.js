@@ -104,7 +104,7 @@ function parseAndExtract(database) {
   // res.age["_61-80"] = percentAndRound(ageGroup[3] / total);
   // res.age["_81-100"] = percentAndRound(ageGroup[4] / total);
   // res.age["_101-"] = percentAndRound(ageGroup[5] / total);
-  return res;
+  return total === 0 ? null : res;
 }
 
 // true only if character is A-M

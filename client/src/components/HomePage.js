@@ -39,10 +39,11 @@ class HomePage extends React.Component {
         config["data"] = JSON.parse(JSON.stringify(data));
         // send data to backend for statistics
         axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
+          .then((response) => {
+            let stats = JSON.stringify(response.data);
+            this.setState({ stats: stats });
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
           });
       } catch (error) {

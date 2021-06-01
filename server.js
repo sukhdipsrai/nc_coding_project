@@ -29,7 +29,9 @@ app.post("/api/randomUser", (req, res) => {
   console.log(req);
   let database = req.body;
   let data = randomPeople.parseAndExtract(database);
-  if (req.headers.accept === "text/plain") {
+  if (data === null)
+    res.status(400).send("Something wrong with the given JSON Data.");
+  else if (req.headers.accept === "text/plain") {
     res.set("text/plain").send(randomPeople.jsonToText(data));
   } else if (req.headers.accept === "text/xml")
     res.set("text/xml").send(toXML({ results: data }));
