@@ -16,6 +16,7 @@ class HomePage extends React.Component {
   };
 
   visualize = (e) => {
+    let invalidStr = `Malformed JSON in Text Box, try again.\nSee https://randomuser.me/documentation for sample data.`;
     console.log("visualize");
     let data = null;
     var config = {
@@ -39,10 +40,10 @@ class HomePage extends React.Component {
             this.setState({ stats: JSON.parse(stats), errors: "" });
           })
           .catch((error) => {
-            this.setState({ errors: "Malformed JSON in Text Box, try again." });
+            this.setState({ errors: invalidStr });
           });
       } catch (error) {
-        this.setState({ errors: "Malformed JSON in Text Box, try again." });
+        this.setState({ errors: invalidStr });
       }
     }
     // Use File Input
@@ -71,12 +72,12 @@ class HomePage extends React.Component {
               })
               .catch(function (error) {
                 this.setState({
-                  errors: "Malformed JSON in Text Box, try again.",
+                  errors: invalidStr,
                 });
               });
           } catch (error) {
             // save erros to state if JSON cannot be parsed
-            this.setState({ errors: "Malformed JSON in File, try again." });
+            this.setState({ errors: invalidStr });
           }
         });
 
