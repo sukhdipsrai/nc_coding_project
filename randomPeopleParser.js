@@ -93,7 +93,7 @@ function parseAndExtract(database) {
     else if (i !== 5) ageGroupStr = `${i * 20 + 1}-${(i + 1) * 20}`;
     ageGroup[i] = {
       group: ageGroupStr,
-      perent: percentAndRound(ageGroup[i] / total),
+      percent: percentAndRound(ageGroup[i] / total),
     };
   });
   res.age = ageGroup;
@@ -146,7 +146,7 @@ function jsonToText(json) {
     const ageStr = "The percentage of people in age range ";
     for (key in json.age) {
       let value = json.age[key];
-      result += ageStr + `${value.group} : ${value.perent}%\n`;
+      result += ageStr + `${value.group} : ${value.percent}%\n`;
     }
   } catch (error) {}
   return result;
