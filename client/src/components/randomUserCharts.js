@@ -3,10 +3,6 @@ import "../stylesheets/randomUserCharts.css";
 import { Pie, Bar } from "react-chartjs-2";
 
 class RandomUserCharts extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   parseStateData = (statesTopData) => {
     let stateFemale = [];
     let stateMale = [];
