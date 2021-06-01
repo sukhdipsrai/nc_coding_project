@@ -81,11 +81,14 @@ function parseAndExtract(database) {
       let y = statesArr[i][2];
       let z = statesArr[i][3];
       res.topStatesTotal.push({
-        name: name,
-        rank: i + 1,
-        female: percentAndRound(x / z),
-        male: percentAndRound(y / z),
-        total: percentAndRound(z / total),
+        _name: "State",
+        _content: {
+          name: name,
+          rank: i + 1,
+          female: percentAndRound(x / z),
+          male: percentAndRound(y / z),
+          total: percentAndRound(z / total),
+        },
       });
     }
   }
@@ -106,11 +109,14 @@ function parseAndExtract(database) {
       let y = statesArr[i][2];
       let z = statesArr[i][3];
       res.topStatesFemale.push({
-        name: name,
-        rank: i + 1,
-        female: percentAndRound(x / z),
-        male: percentAndRound(y / z),
-        total: percentAndRound(z / total),
+        _name: "State",
+        _content: {
+          name: name,
+          rank: i + 1,
+          female: percentAndRound(x / z),
+          male: percentAndRound(y / z),
+          total: percentAndRound(z / total),
+        },
       });
     }
   }
@@ -128,11 +134,14 @@ function parseAndExtract(database) {
       let y = statesArr[i][2];
       let z = statesArr[i][3];
       res.topStatesMale.push({
-        name: name,
-        rank: i + 1,
-        female: percentAndRound(x / z),
-        male: percentAndRound(y / z),
-        total: percentAndRound(z / total),
+        _name: "State",
+        _content: {
+          name: name,
+          rank: i + 1,
+          female: percentAndRound(x / z),
+          male: percentAndRound(y / z),
+          total: percentAndRound(z / total),
+        },
       });
     }
   }
@@ -142,8 +151,11 @@ function parseAndExtract(database) {
     if (i === 0) ageGroupStr = `${i * 20}-${(i + 1) * 20}`;
     else if (i !== 5) ageGroupStr = `${i * 20 + 1}-${(i + 1) * 20}`;
     ageGroup[i] = {
-      group: ageGroupStr,
-      percent: percentAndRound(ageGroup[i] / total),
+      _name: "AgeGroup",
+      _content: {
+        group: ageGroupStr,
+        percent: percentAndRound(ageGroup[i] / total),
+      },
     };
   });
   res.age = ageGroup;
