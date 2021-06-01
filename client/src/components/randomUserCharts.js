@@ -180,11 +180,14 @@ class RandomUserCharts extends React.Component {
       responsive: true,
     };
     let options1 = JSON.parse(JSON.stringify(optionsBar));
-    options1.plugins.title.text = "Top States Ranked by General Population";
+    options1.plugins.title.text =
+      "Top States Ranked by General Population (Highest to the left)";
     let options2 = JSON.parse(JSON.stringify(optionsBar));
-    options2.plugins.title.text = "Top States Ranked by Female Population";
+    options2.plugins.title.text =
+      "Top States Ranked by Female Population (Highest to the left)";
     let options3 = JSON.parse(JSON.stringify(optionsBar));
-    options3.plugins.title.text = "Top States Ranked by Male Population";
+    options3.plugins.title.text =
+      "Top States Ranked by Male Population (Highest to the left)";
 
     let options4 = JSON.parse(JSON.stringify(optionsPie));
     options4.plugins.title.text = "Female Vs. Male Population";
