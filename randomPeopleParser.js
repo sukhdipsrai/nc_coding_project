@@ -188,20 +188,27 @@ function jsonToText(json) {
   } catch (error) {}
 
   try {
-    for (key in json.states) {
-      let value = json.states[key];
+    for (key in json.topStatesTotal) {
+      let value = json.topStatesTotal[key]._content;
       let stateName = value.name;
-      result += `Population rank of ${stateName}: ${value.rank}\n`;
-      result += `Percentage of people in ${stateName}: ${value.total}%\n`;
-      result += `Percentage of female population in ${stateName}: ${value.female}%\n`;
-      result += `Percentage of male population in ${stateName}: ${value.male}%\n`;
+      result += `${stateName} rank in total population is: ${value.rank}, with a total population percentage of: ${value.total}%, with a state percentage of female versus male: ${value.female}%\n`;
+    }
+    for (key in json.topStatesFemale) {
+      let value = json.topStatesFemale[key]._content;
+      let stateName = value.name;
+      result += `${stateName} rank in male population is: ${value.rank}, with a total population percentage of: ${value.total}%, with a state percentage of female versus male: ${value.female}%\n`;
+    }
+    for (key in json.topStatesMale) {
+      let value = json.topStatesTotal[key]._content;
+      let stateName = value.name;
+      result += `${stateName} rank in female population is: ${value.rank}, with a total population percentage of: ${value.total}%, with a state percentage of female versus male: ${value.female}%\n`;
     }
   } catch (error) {}
 
   try {
     const ageStr = "The percentage of people in age range ";
     for (key in json.age) {
-      let value = json.age[key];
+      let value = json.age[key]._content;
       result += ageStr + `${value.group} : ${value.percent}%\n`;
     }
   } catch (error) {}
