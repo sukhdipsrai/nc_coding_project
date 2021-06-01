@@ -138,12 +138,14 @@ class RandomUserCharts extends React.Component {
               weight: "bold",
             },
           },
+          ticks: {
+            color: "#292929", // this here
+          },
         },
         y: {
           stacked: true,
-          gridLines: {
-            display: true,
-            color: "rgba(41, 41, 41, 1)",
+          grid: {
+            color: "#292929",
           },
           title: {
             display: true,
@@ -153,6 +155,9 @@ class RandomUserCharts extends React.Component {
               size: 14,
               weight: "bold",
             },
+          },
+          ticks: {
+            color: "#292929", // this here
           },
         },
       },
