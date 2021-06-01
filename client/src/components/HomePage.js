@@ -1,7 +1,7 @@
 import React from "react";
 import "../stylesheets/homepage.css";
 import axios from "axios";
-import { stat } from "fs";
+import RandomUserCharts from "./randomUserCharts";
 var sampleData = require("../input.json");
 
 class HomePage extends React.Component {
@@ -142,6 +142,7 @@ class HomePage extends React.Component {
           <div className="form-errors">{this.state.errors}</div>
           <div className="form-errors">{this.state.textErrors}</div>
         </form>
+        <RandomUserCharts stats={this.state.stats} />
       </div>
     );
   }
