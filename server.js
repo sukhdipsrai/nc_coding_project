@@ -15,10 +15,15 @@ app.use(
     extended: true,
   })
 );
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
-app.get("/", (req, res) => {
-  console.log(req.headers.accept);
-});
+const path = require("path");
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+}
 
 //  text/plain
 //  application/json
@@ -37,5 +42,3 @@ app.post("/api/randomUser", (req, res) => {
     res.set("application/xml").send(toXML({ results: data }));
   else res.send({ results: data });
 });
-
-app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
