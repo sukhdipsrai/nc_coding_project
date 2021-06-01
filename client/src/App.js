@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
-import HomePage from "./components/HomePage";
+import HomePage from "./components/homePage";
 import "./App.css";
 
 class App extends Component {
