@@ -16,9 +16,8 @@ app.use(
   })
 );
 
-app.get("/express_backend", (req, res) => {
+app.get("/", (req, res) => {
   console.log(req.headers.accept);
-  res.send({ express: "EXPRESS WORKING" });
 });
 
 //  text/plain
