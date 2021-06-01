@@ -25,11 +25,29 @@ class HomePage extends React.Component {
     if (!this.state.text) {
       // Use Text Input
       try {
-        data = JSON.parse(
+        let body = JSON.stringify(
           document.getElementsByClassName("json-text-input")[0].value
         );
+        console.log(body);
+        // data = JSON.stringify(data);
         // send the api request here
-        fetch("api/randomUser");
+        var config = {
+          method: "get",
+          url: "/api/randomUser",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: body,
+        };
+
+        axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       } catch (error) {
         this.setState({ textErrors: "Malformed JSON in Text Box, try again." });
       }

@@ -1,12 +1,13 @@
 const randomPeople = require("./randomPeopleParser");
 const { toXML } = require("jstoxml");
 const express = require("express");
+bodyParser = require("body-parser");
+
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
-// app.use(express.urlencoded({ limit: "50mb", parameterLimit: 500000000 }));
 app.use(express.json({ limit: "50mb", parameterLimit: 500000000 }));
+app.use(express.urlencoded({ limit: "50mb", parameterLimit: 500000000 }));
 
 app.get("/express_backend", (req, res) => {
   console.log(req.headers.accept);
@@ -17,6 +18,7 @@ app.get("/express_backend", (req, res) => {
 //  application/json
 // text/xml && application/xml
 app.get("/api/randomUser", (req, res) => {
+  console.log(req);
   let database = req.body;
   let data = randomPeople.parseAndExtract(database);
   if (req.headers.accept === "text/plain") {
@@ -29,3 +31,5 @@ app.get("/api/randomUser", (req, res) => {
 
   // TODO: if text, do txt format,  if xml do xml format, else return as is (JSON)
 });
+
+app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
