@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
 //  text/plain
 //  application/json
 //  text/xml && application/xml
-//  handling the above accept headers
+//  accepting the above accept headers
 app.post("/api/randomUser", (req, res) => {
   // console.log(req);
   let database = req.body;
