@@ -210,6 +210,7 @@ function jsonToText(json) {
         "The percentage of people in age range " +
         `${value.group} : ${value.percent}%\n`;
     }
+    result += `The total amount of people is: ${json.total}\n`;
   } catch (error) {}
   return result;
 }
